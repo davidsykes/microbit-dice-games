@@ -1,0 +1,29 @@
+Running micro:bit micropython code without a micro:bit
+
+Flashing the code to the micro:bit and runnning it is pretty quick, but it could be quicker.
+It takes some seconds for the program to transfer, and if the code includes any time delays or text display things take even longer.
+
+For super fast development cycles, particularly if tdd is involved, run times need to be instant, and for this the code needs to be run on the PC
+
+When running the initial demo code with the standard python the first problem is the microbit module:
+
+# Add your Python code here. E.g.
+from microbit import *
+
+while True:
+    display.scroll('Hello, World!')
+    display.show(Image.HEART)
+    sleep(2000)
+
+When compiling the code for the micro:bit the microbit module is automatically included, but when running on the PC it is not
+
+Traceback (most recent call last):
+  File "demoprogram.py", line 2, in <module>
+    from microbit import *
+ImportError: No module named microbit
+
+"from microbit import *" means "look for a module called microbit and load in everthing within it". The microbit module is on the micro:bit, not on the PC. A simple solution is to give it a dummy module which we can control. To do this create an empty file called 'microbit.py'
+
+
+
+
