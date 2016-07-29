@@ -1,13 +1,16 @@
 Running micro:bit micropython code without a micro:bit
 
-Flashing the code to the micro:bit and runnning it is pretty quick, but it could be quicker.
-It takes some seconds for the program to transfer, and if the code includes any time delays or text display things take even longer.
+Developing a program involves repeatedly making small changes and trying them. Flashing the code to the micro:bit and runnning it is pretty quick, but it takes some seconds for the program to transfer, and if the code includes any time delays or text display things take even longer.
 
-For super fast development cycles, particularly if tdd is involved, run times need to be instant, and for this the code needs to be run on the PC
+For super fast development cycles, particularly if tdd is involved, run times need to be instant, and for this the code needs to be run on the PC. Running the program on the command line allows code changes to be checked instantly, which greatly speeds up development.
 
-When running the initial demo code with the standard python the first problem is the microbit module:
+Every operating system has a command line. On windows it is the command prompt.
+http://www.wikihow.com/Run-a-Program-on-Command-Prompt
+On Linux or Mac it is the Terminal. Python will need to be installed
+https://www.python.org/downloads/
 
-# Add your Python code here. E.g.
+When trying to run the initial demo code using the standard python the first problem is the microbit module:
+
 from microbit import *
 
 while True:
@@ -17,13 +20,81 @@ while True:
 
 When compiling the code for the micro:bit the microbit module is automatically included, but when running on the PC it is not
 
+python demoprogram.py
+
 Traceback (most recent call last):
   File "demoprogram.py", line 2, in <module>
     from microbit import *
 ImportError: No module named microbit
 
-"from microbit import *" means "look for a module called microbit and load in everthing within it". The microbit module is on the micro:bit, not on the PC. A simple solution is to give it a dummy module which we can control. To do this create an empty file called 'microbit.py'
+The line "from microbit import *" means "look for a module called microbit and load in everthing within it". But the microbit module is on the micro:bit device, not on the PC.
 
+To get the code to run on the PC we can give it a dummy microbit module that contains code that shows us what the micro:bit would be douing, for example the display.scroll command could print its message to the command line. This means no waiting for the message to scroll.
 
+Start by creating an empty file called 'microbit.py' in the same directory as the progam.
 
+python demoprogram.py
 
+Now the program finds our microbit module, but as it is empty it does not find the microbit functions
+
+Traceback (most recent call last):
+  File "demoprogram.py", line 6, in <module>
+    display.scroll('Hello, World!')
+NameError: name 'display' is not defined
+
+In the microbit module display is a module with the methods scroll and show. To create a stub for this module add this line to microbit.py:
+
+import display
+
+and create a file called display.py with the following contents
+
+def scroll(message):
+    print 'Scroll:', message
+
+Running the program now displays:
+
+Scroll: Hello, World!
+Traceback (most recent call last):
+  File "demoprogram.py", line 7, in <module>
+    display.show(Image.HEART)
+AttributeError: 'module' object has no attribute 'show'
+
+The program has run the display.scroll command and printed out Scroll: Hello, World!. Now the error is because display.show has not been implemented.
+Adding display.show is a little more complicated because it uses Image.HEART, which could be implemented in a variety of ways, but is effectively another module. To keep things simple, and potentially more pythonic
+http://docs.python-guide.org/en/latest/writing/style/
+
+Add the following to display.py
+
+def show(image):
+    print 'Image:', image
+
+Change microbit.py to
+
+import display
+import Image
+
+And create the file Image.py with the following content
+
+HEART = 1
+
+Running the program now gives us
+
+Scroll: Hello, World!
+Image: 1
+Traceback (most recent call last):
+  File "demoprogram.py", line 8, in <module>
+    sleep(2000)
+NameError: name 'sleep' is not defined
+
+Nearly there, though sleep has its own quirkiness. Python has a sleep function in the time module, bit this uses seconds instead of milliseconds, so sleep(2000) would wait half an hour.
+
+To add our own implentation add the following to display.py
+
+def sleep(time):
+    print 'Sleep:', time
+
+And the following to microbit.py
+
+from display import sleep
+
+Now the program runs, repeatedly printing out the three command messages showing what the micro:bit would be doing, but without having to wait for the text to scroll and the delay to finish.
