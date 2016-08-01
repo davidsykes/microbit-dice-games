@@ -1,5 +1,6 @@
 
 
 class App:
-    def Run(self):
-        print 'Running'
+    def Run(self, microbit):
+        print('Running')
+        microbit.Image(1)
