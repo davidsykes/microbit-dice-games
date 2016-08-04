@@ -1,4 +1,5 @@
 
 
 HEART = 1
+SMILE = 2
 

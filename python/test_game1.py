@@ -12,7 +12,6 @@ class TestGame1(unittest.TestCase):
         self.mockAnimationModule = MagicMock()
         self.mockfactory.GetAnimationModule = MagicMock(return_value=self.mockAnimationModule)
         self.game = Game1(self.mockfactory)
-        #self.mockmicrobit = MagicMock();
         
     def test_game1InitialiseRequestsAnimationModule(self):
         self.mockfactory.GetAnimationModule.assert_called_with()

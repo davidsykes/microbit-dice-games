@@ -25,7 +25,7 @@ class Factory:
     def CreateGame(self, num):
         return Game()
 
-### app.py ###
+################### App ############################
 
 class App:
     def Run(self, microbit, factory):
@@ -48,4 +48,4 @@ while True:
         mbapi.Image(Image.SMILE);
         while button_a.is_pressed():
             pass
-        mbapi.Image(Image.YES);
+        app.Shake();
