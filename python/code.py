@@ -39,6 +39,13 @@ class App:
 
 mbapi = MicrobitApi()
 fac = Factory();
-appw = App()
-display.scroll('sss')
-appw.Run(mbapi, fac)
+app = App()
+display.scroll('!')
+app.Run(mbapi, fac)
+
+while True:
+    if button_a.is_pressed():
+        mbapi.Image(Image.SMILE);
+        while button_a.is_pressed():
+            pass
+        mbapi.Image(Image.YES);
