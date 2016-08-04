@@ -12,7 +12,7 @@ class Game:
     def Turn(self):
         display.scroll('turn')
 
-class GameS:
+class Game1:
     def __init__(self, factory):
         self.animationModule = factory.GetAnimationModule()
         
