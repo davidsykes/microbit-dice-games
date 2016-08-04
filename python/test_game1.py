@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
-from game1 import Game1
+from code import App
+from code import GameS
 
 class TestGame1(unittest.TestCase):
 
@@ -10,7 +11,7 @@ class TestGame1(unittest.TestCase):
         self.mockfactory = MagicMock();
         self.mockAnimationModule = MagicMock()
         self.mockfactory.GetAnimationModule = MagicMock(return_value=self.mockAnimationModule)
-        self.game = Game1(self.mockfactory)
+        self.game = GameS(self.mockfactory)
         #self.mockmicrobit = MagicMock();
         
     def test_game1InitialiseRequestsAnimationModule(self):

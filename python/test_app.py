@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import MagicMock
-from app import App
+from code import App
 
 
 class TestMainApp(unittest.TestCase):
