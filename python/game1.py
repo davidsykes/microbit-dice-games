@@ -1,5 +1,9 @@
 
 
+class Game:
+    def Turn(self):
+        display.scroll('turn')
+
 class Game1:
     def __init__(self, factory):
         self.animationModule = factory.GetAnimationModule()
