@@ -10,7 +10,7 @@ class MicrobitApi:
 #################### AnimationModule ####################
 
 class AnimationModule:
-    def Sparkle(self):
+    def Sparkle(self, time):
         display.scroll('xx')
 
 #################### game1.py #################### 
