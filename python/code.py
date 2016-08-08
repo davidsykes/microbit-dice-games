@@ -59,3 +59,5 @@ if __name__ == '__main__':
             while button_a.is_pressed():
                 pass
             app.Shake();
+        if accelerometer.was_gesture("shake"):
+            app.Shake();

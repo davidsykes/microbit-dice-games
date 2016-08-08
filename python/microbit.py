@@ -4,4 +4,5 @@ import display
 import Image
 import button_a
 from display import sleep
+import accelerometer
 
