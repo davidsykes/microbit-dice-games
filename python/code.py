@@ -5,8 +5,15 @@ from microbit import *
 class MicrobitApi:
     def Image(self, image):
         display.show(image);
+        
 
-### game1.py ###
+#################### AnimationModule ####################
+
+class AnimationModule:
+    def Sparkle(self):
+        display.scroll('xx')
+
+#################### game1.py #################### 
 
 class Game:
     def Turn(self):
@@ -19,11 +26,13 @@ class Game1:
     def Turn(self):
         self.animationModule.Sparkle(2)
 
-### factory.py ###
+#################### factory.py #########################
 
 class Factory:
     def CreateGame(self, num):
-        return Game()
+        return Game1(self)
+    def GetAnimationModule(self):
+        return AnimationModule()
 
 ################### App ############################
 
@@ -37,15 +46,16 @@ class App:
 
 ###  main.py ###
 
-mbapi = MicrobitApi()
-fac = Factory();
-app = App()
-display.scroll('!')
-app.Run(mbapi, fac)
+if __name__ == '__main__':
+    mbapi = MicrobitApi()
+    fac = Factory();
+    app = App()
+    display.scroll('!')
+    app.Run(mbapi, fac)
 
-while True:
-    if button_a.is_pressed():
-        mbapi.Image(Image.SMILE);
-        while button_a.is_pressed():
-            pass
-        app.Shake();
+    while True:
+        if button_a.is_pressed():
+            mbapi.Image(Image.SMILE);
+            while button_a.is_pressed():
+                pass
+            app.Shake();
