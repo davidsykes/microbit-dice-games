@@ -1,5 +1,5 @@
 
 
-HEART = 1
+HEART = 'Heart'
 SMILE = 2
 

@@ -5,6 +5,10 @@ from microbit import *
 class MicrobitApi:
     def Image(self, image):
         display.show(image);
+    def Random(self, start, end):
+        return randint(start, end)
+    def Show(self, value):
+        display.show(value)
 
 #################### AnimationModule ####################
 
