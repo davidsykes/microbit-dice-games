@@ -1,11 +1,10 @@
 from microbit import *
 
-### microbitapi.py ###
+#################### microbitapi.py ####################
 
 class MicrobitApi:
     def Image(self, image):
         display.show(image);
-        
 
 #################### AnimationModule ####################
 
@@ -15,16 +14,14 @@ class AnimationModule:
 
 #################### game1.py #################### 
 
-class Game:
-    def Turn(self):
-        display.scroll('turn')
-
 class Game1:
     def __init__(self, factory):
         self.animationModule = factory.GetAnimationModule()
+        self.microbitModule = factory.GetMicrobitModule()
         
     def Turn(self):
         self.animationModule.Sparkle(2)
+        number = self.microbitModule.Random(1,6)
 
 #################### factory.py #########################
 
@@ -33,6 +30,8 @@ class Factory:
         return Game1(self)
     def GetAnimationModule(self):
         return AnimationModule()
+    def GetMicrobitModule(self):
+        return MicrobitApi()
 
 ################### App ############################
 
