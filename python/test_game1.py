@@ -30,7 +30,7 @@ class TestGame1(unittest.TestCase):
         self.mockMicrobitModule.Random.assert_called_with(1,6)
 
     def test_gameTurnFunctionDisplaysResultOfRandomCall(self):
-        self.mockMicrobitModule = MagicMock()
+        self.mockMicrobitModule.Random = MagicMock(return_value='random')
         self.game.Turn()
         self.mockMicrobitModule.Show.assert_called_with('random')
 

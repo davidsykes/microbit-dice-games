@@ -22,6 +22,7 @@ class Game1:
     def Turn(self):
         self.animationModule.Sparkle(2)
         number = self.microbitModule.Random(1,6)
+        self.microbitModule.Show(number)
 
 #################### factory.py #########################
 
