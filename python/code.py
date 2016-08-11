@@ -42,9 +42,17 @@ class Factory:
 ################### App ############################
 
 class App:
-    def Run(self, microbit, factory):
+    def __init__(self, factory):
+        self.factory = factory
+        self.nextGame = 1
+
+    def Run(self, microbit):
         microbit.Image(Image.HEART)
-        self.gameController = factory.CreateGame(1)
+        self.gameController = self.factory.CreateGame(self.nextGame)
+    
+    def ButtonA(self):
+        self.nextGame = self.nextGame + 1 if self.nextGame < 2 else 1
+        self.gameController = self.factory.CreateGame(self.nextGame)
         
     def Shake(self):
         self.gameController.Turn()
