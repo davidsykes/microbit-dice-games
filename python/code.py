@@ -1,4 +1,5 @@
 from microbit import *
+import random
 
 #################### microbitapi.py ####################
 
@@ -6,7 +7,7 @@ class MicrobitApi:
     def Image(self, image):
         display.show(image);
     def Random(self, start, end):
-        return randint(start, end)
+        return random.randint(start, end)
     def Show(self, value):
         display.show(value)
 
@@ -26,7 +27,7 @@ class Game1:
     def Turn(self):
         self.animationModule.Sparkle(2)
         number = self.microbitModule.Random(1,6)
-        self.microbitModule.Show(number)
+        self.microbitModule.Show(str(number))
 
 #################### factory.py #########################
 
@@ -54,7 +55,6 @@ if __name__ == '__main__':
     mbapi = MicrobitApi()
     fac = Factory();
     app = App()
-    display.scroll('!')
     app.Run(mbapi, fac)
 
     while True:

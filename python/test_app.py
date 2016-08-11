@@ -14,7 +14,7 @@ class TestMainApp(unittest.TestCase):
         
     def test_callingTheAppRunModuleDisplaysAnImage(self):
         self.app.Run(self.mockmicrobit, self.mockfactory)
-        self.mockmicrobit.Image.assert_called_with(1)
+        self.mockmicrobit.Image.assert_called_with('Heart')
         
     def test_callingTheAppRunModuleRequestsGame1Controller(self):
         self.app.Run(self.mockmicrobit, self.mockfactory)

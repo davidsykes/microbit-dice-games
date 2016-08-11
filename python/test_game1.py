@@ -29,10 +29,10 @@ class TestGame1(unittest.TestCase):
         self.game.Turn()
         self.mockMicrobitModule.Random.assert_called_with(1,6)
 
-    def test_gameTurnFunctionDisplaysResultOfRandomCall(self):
-        self.mockMicrobitModule.Random = MagicMock(return_value='random')
+    def test_gameTurnFunctionDisplaysResultOfRandomCallAsString(self):
+        self.mockMicrobitModule.Random = MagicMock(return_value=42)
         self.game.Turn()
-        self.mockMicrobitModule.Show.assert_called_with('random')
+        self.mockMicrobitModule.Show.assert_called_with('42')
 
 if __name__ == '__main__':
 
