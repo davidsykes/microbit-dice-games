@@ -17,7 +17,7 @@ class AnimationModule:
     def Sparkle(self, time):
         display.scroll('xx')
 
-#################### game1.py #################### 
+#################### game1 #################### 
 
 class Game1:
     def __init__(self, factory):
@@ -29,10 +29,22 @@ class Game1:
         number = self.microbitModule.Random(1,6)
         self.microbitModule.Show(str(number))
 
+#################### game2 #################### 
+
+class Game2:
+    def __init__(self, factory):
+        self.microbitModule = factory.GetMicrobitModule()
+        self.microbitModule.Show('R')
+        
+    def Turn(self):
+        pass
+
 #################### factory.py #########################
 
 class Factory:
     def CreateGame(self, num):
+        if num == 2:
+            return Game2(self)
         return Game1(self)
     def GetAnimationModule(self):
         return AnimationModule()
@@ -62,14 +74,13 @@ class App:
 if __name__ == '__main__':
     mbapi = MicrobitApi()
     fac = Factory();
-    app = App()
-    app.Run(mbapi, fac)
+    app = App(fac)
+    app.Run(mbapi)
 
     while True:
         if button_a.is_pressed():
-            mbapi.Image(Image.SMILE);
+            app.ButtonA()
             while button_a.is_pressed():
                 pass
-            app.Shake();
         if accelerometer.was_gesture("shake"):
             app.Shake();
