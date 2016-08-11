@@ -23,6 +23,7 @@ class Game1:
     def __init__(self, factory):
         self.animationModule = factory.GetAnimationModule()
         self.microbitModule = factory.GetMicrobitModule()
+        self.microbitModule.Image(Image.HEART)
         
     def Turn(self):
         self.animationModule.Sparkle(2)
@@ -59,7 +60,6 @@ class App:
         self.nextGame = 1
 
     def Run(self, microbit):
-        microbit.Image(Image.HEART)
         self.gameController = self.factory.CreateGame(self.nextGame)
     
     def ButtonA(self):

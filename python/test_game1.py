@@ -24,6 +24,9 @@ class TestGame1(unittest.TestCase):
     def test_game1InitialiseRequestsMicrobitModule(self):
         self.mockfactory.GetMicrobitModule.assert_called_with()
         
+    def test_game1InitialiseDisplaysAnImage(self):
+        self.mockMicrobitModule.Image.assert_called_with('Heart')
+        
     def test_gameTurnFunctionCallsSparkleAnimationFor2Seconds(self):
         self.game.Turn()
         self.mockAnimationModule.Sparkle.assert_called_with(2)
