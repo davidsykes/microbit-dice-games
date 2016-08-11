@@ -55,13 +55,13 @@ kb = KeyboardLinux()
 
 current = 0
 
-def CheckKeyboard():
+def CheckKeyboard(firstCallInLoopChecksForNewKey):
 	global current
-	current = 0
-	pressed = kb.kbhit()
-	if pressed:
-		ch = kb.getch()
-		print 'pressed',ch.isdigit()
-		if ch.isdigit():
-			current = int(ch)
+	if firstCallInLoopChecksForNewKey:
+		current = 0
+		pressed = kb.kbhit()
+		if pressed:
+			ch = kb.getch()
+			if ch.isdigit():
+				current = int(ch)
 	return current
