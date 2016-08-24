@@ -10,6 +10,8 @@ class MicrobitApi:
         return random.randint(start, end)
     def Show(self, value):
         display.show(value)
+    def ShowImage(self, value):
+        display.show(Image(value))
 
 #################### AnimationModule ####################
 
@@ -18,7 +20,7 @@ class AnimationModule:
         self.microbit = microbit
         
     def SetAllPixels(self):
-        pass
+        self.microbit.ShowImage('99999:99999:99999:99999:99999')
 
     def Sparkle(self, time):
         display.scroll('xx')

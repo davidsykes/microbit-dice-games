@@ -1,6 +1,6 @@
 import sys
 sys.path.append('mb')
-import Image
+from Image import Image
 
 if sys.version_info[0] < 3:
     import display
