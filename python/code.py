@@ -29,8 +29,8 @@ class AnimationModule:
 
 class Game1:
     def __init__(self, factory):
-        self.animationModule = factory.GetAnimationModule()
         self.microbitModule = factory.GetMicrobitModule()
+        self.animationModule = factory.GetAnimationModule(self.microbitModule)
         self.microbitModule.Image(Image.HEART)
         
     def Turn(self):
@@ -43,7 +43,10 @@ class Game1:
 class Game2:
     def __init__(self, factory):
         self.microbitModule = factory.GetMicrobitModule()
+        self.animationModule = factory.GetAnimationModule(self.microbitModule)
+
         self.microbitModule.Show('R')
+        self.animationModule.SetAllPixels()
         
     def Turn(self):
         pass
@@ -55,8 +58,8 @@ class Factory:
         if num == 2:
             return Game2(self)
         return Game1(self)
-    def GetAnimationModule(self):
-        return AnimationModule()
+    def GetAnimationModule(self, microbitModule):
+        return AnimationModule(microbitModule)
     def GetMicrobitModule(self):
         return MicrobitApi()
 
