@@ -14,6 +14,12 @@ class MicrobitApi:
 #################### AnimationModule ####################
 
 class AnimationModule:
+    def __init__(self, microbit):
+        self.microbit = microbit
+        
+    def SetAllPixels(self):
+        pass
+
     def Sparkle(self, time):
         display.scroll('xx')
 

@@ -17,14 +17,18 @@ class TestGame2(unittest.TestCase):
         self.mockfactory.GetMicrobitModule = MagicMock(return_value=self.mockMicrobitModule)
 
         self.game = Game2(self.mockfactory)
+
+    # Initialise
         
     def test_game2InitialiseRequestsMicrobitModule(self):
         self.mockfactory.GetMicrobitModule.assert_called_with()
         
     def test_game2InitialiseDisplaysR(self):
         self.mockMicrobitModule.Show.assert_called_with('R')
+
+    # Turn
         
-#    def test_gameTurnFunctionCallsSparkleAnimationFor2Seconds(self):
+#    def test_gameTurnFunctionSetsAllPixelsOn(self):
 #        self.game.Turn()
 #        self.mockAnimationModule.Sparkle.assert_called_with(2)
 #
@@ -38,5 +42,4 @@ class TestGame2(unittest.TestCase):
 #        self.mockMicrobitModule.Show.assert_called_with('42')
 
 if __name__ == '__main__':
-
     unittest.main()

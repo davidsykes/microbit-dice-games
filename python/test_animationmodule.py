@@ -6,20 +6,14 @@ class TestAnimationModule(unittest.TestCase):
 
     # Setup
 
-    #def setUp(self):
-    #    self.mockfactory = MagicMock();
-    #    self.mockAnimationModule = MagicMock()
-    #    self.mockfactory.GetAnimationModule = MagicMock(return_value=self.mockAnimationModule)
-    #    self.game = Game1(self.mockfactory)
-        
-    def test_game1InitialiseRequestsAnimationModule(self):
-        #self.mockfactory.GetAnimationModule.assert_called_with()
-        pass
-        
-    def test_gameTurnFunctionCallsSparkleAnimationFor2Seconds(self):
-        #self.game.Turn()
-        #self.mockAnimationModule.Sparkle.assert_called_with(2)
-        pass
+    def setUp(self):
+        self.mockMicrobitModule = MagicMock();
+        self.animationModule = AnimationModule(self.mockMicrobitModule);
+
+    def test_setAllPixelsCallsImageWithAllPixelsSet(self):
+        self.animationModule.SetAllPixels();
+        self.mockMicrobitModule.Image.assert_called_with("99999:99999:99999:99999:99999")
+
 
 if __name__ == '__main__':
 

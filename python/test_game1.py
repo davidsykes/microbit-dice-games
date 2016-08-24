@@ -17,6 +17,8 @@ class TestGame1(unittest.TestCase):
         self.mockfactory.GetMicrobitModule = MagicMock(return_value=self.mockMicrobitModule)
 
         self.game = Game1(self.mockfactory)
+
+    # Initialise
         
     def test_game1InitialiseRequestsAnimationModule(self):
         self.mockfactory.GetAnimationModule.assert_called_with()
@@ -26,6 +28,8 @@ class TestGame1(unittest.TestCase):
         
     def test_game1InitialiseDisplaysAnImage(self):
         self.mockMicrobitModule.Image.assert_called_with('Heart')
+
+    # Turn
         
     def test_gameTurnFunctionCallsSparkleAnimationFor2Seconds(self):
         self.game.Turn()
