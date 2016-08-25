@@ -12,6 +12,10 @@ class MicrobitApi:
         display.show(value)
     def ShowImage(self, value):
         display.show(Image(value))
+    def SetPixel(self, x, y, v):
+        display.set_pixel(x,y,v);
+    def RunningTime(self):
+        return running_time()
 
 #################### AnimationModule ####################
 
@@ -21,6 +25,9 @@ class AnimationModule:
         
     def SetAllPixels(self):
         self.microbit.ShowImage('99999:99999:99999:99999:99999')
+
+    def SetPixel(self, x, y, v):
+        self.microbit.SetPixel(x,y,v);
 
     def Sparkle(self, time):
         display.scroll('xx')
@@ -37,19 +44,29 @@ class Game1:
         self.animationModule.Sparkle(2)
         number = self.microbitModule.Random(1,6)
         self.microbitModule.Show(str(number))
+        
+    def Poll(self):
+        pass
 
 #################### game2 #################### 
 
 class Game2:
+    TimePeriod = 1000
+
     def __init__(self, factory):
         self.microbitModule = factory.GetMicrobitModule()
         self.animationModule = factory.GetAnimationModule(self.microbitModule)
-
+        self.time = 0
         self.microbitModule.Show('R')
-        self.animationModule.SetAllPixels()
         
     def Turn(self):
-        pass
+        self.animationModule.SetAllPixels()
+        self.time = self.microbitModule.RunningTime()
+        
+    def Poll(self):
+        if (self.time > 0) and (self.microbitModule.RunningTime() >= (self.time + self.TimePeriod)):
+            self.time = self.time + self.TimePeriod
+            self.animationModule.SetPixel(0,0,0)
 
 #################### factory.py #########################
 
@@ -79,6 +96,9 @@ class App:
         
     def Shake(self):
         self.gameController.Turn()
+        
+    def Poll(self):
+        self.gameController.Poll()
 
 ###  main.py ###
 
@@ -95,3 +115,4 @@ if __name__ == '__main__':
                 pass
         if accelerometer.was_gesture("shake"):
             app.Shake();
+        app.Poll()

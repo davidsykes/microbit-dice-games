@@ -12,7 +12,6 @@ class TestAnimationModule(unittest.TestCase):
 
     def test_setAllPixelsCallsImageWithAllPixelsSet(self):
         self.animationModule.SetAllPixels();
-        print(self.mockMicrobitModule.mock_calls)
         self.mockMicrobitModule.ShowImage.assert_called_with('99999:99999:99999:99999:99999')
 
 

@@ -21,7 +21,7 @@ class TestGame1(unittest.TestCase):
     # Initialise
         
     def test_game1InitialiseRequestsAnimationModule(self):
-        self.mockfactory.GetAnimationModule.assert_called_with()
+        self.mockfactory.GetAnimationModule.assert_called_with(self.mockMicrobitModule)
         
     def test_game1InitialiseRequestsMicrobitModule(self):
         self.mockfactory.GetMicrobitModule.assert_called_with()
