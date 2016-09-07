@@ -38,7 +38,10 @@ class DisplayStepper:
     X = 0
     Y = 0
     def Next(self):
-        pass
+        self.X = self.X + 1
+        if self.X > 4:
+            self.X = 0
+            self.Y = self.Y + 1
 
 #################### game1 #################### 
 
