@@ -36,7 +36,8 @@ class AnimationModule:
         
 class DisplayStepper:
     X = 0
-    def Sparkle(self, time):
+    Y = 0
+    def Next(self):
         pass
 
 #################### game1 #################### 
