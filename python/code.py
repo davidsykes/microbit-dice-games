@@ -35,8 +35,8 @@ class AnimationModule:
 #################### DisplayStepper #################### 
         
 class DisplayStepper:
-    X = 0
-    Y = 0
+    X = 4
+    Y = -1
     def Next(self):
         self.X = self.X + 1
         if self.X > 4:
@@ -69,6 +69,7 @@ class Game2:
         self.animationModule = factory.GetAnimationModule(self.microbitModule)
         self.time = 0
         self.microbitModule.Show('R')
+        self.displayStepper = DisplayStepper() 
         
     def Turn(self):
         self.animationModule.SetAllPixels()
@@ -77,7 +78,8 @@ class Game2:
     def Poll(self):
         if (self.time > 0) and (self.microbitModule.RunningTime() >= (self.time + self.TimePeriod)):
             self.time = self.time + self.TimePeriod
-            self.animationModule.SetPixel(0,0,0)
+            self.displayStepper.Next()
+            self.animationModule.SetPixel(self.displayStepper.X,self.displayStepper.Y,0)
 
 #################### factory.py #########################
 
