@@ -30,7 +30,7 @@ class AnimationModule:
         self.microbit.SetPixel(x,y,v);
 
     def Sparkle(self, time):
-        display.scroll('xx')
+        display.scroll('?')
 
 #################### game1 #################### 
 
@@ -51,7 +51,7 @@ class Game1:
 #################### game2 #################### 
 
 class Game2:
-    TimePeriod = 1000
+    TimePeriod = 2400
 
     def __init__(self, factory):
         self.microbitModule = factory.GetMicrobitModule()
