@@ -32,6 +32,13 @@ class AnimationModule:
     def Sparkle(self, time):
         display.scroll('?')
 
+#################### DisplayStepper #################### 
+        
+class DisplayStepper:
+    X = 0
+    def Sparkle(self, time):
+        pass
+
 #################### game1 #################### 
 
 class Game1:

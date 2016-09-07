@@ -72,6 +72,7 @@ class TestGame2(unittest.TestCase):
         self.game.Poll()
         self.game.Poll()
         assert self.mockAnimationModule.SetPixel.call_count == 2
+        print(self.mockAnimationModule.mock_calls)
         self.mockAnimationModule.SetPixel.assert_called_with(0,0,0)
         self.mockAnimationModule.SetPixel.assert_called_with(1,0,0)
 

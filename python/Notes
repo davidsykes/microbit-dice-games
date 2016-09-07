@@ -1,0 +1,1 @@
+        print(self.mockAnimationModule.mock_calls)
