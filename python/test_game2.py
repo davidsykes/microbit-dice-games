@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import MagicMock
-from testcode import App,InjectMicrobitModule
+from testcode import App, InjectMicrobitModule
 from testcode import Game2
 
 class TestGame2(unittest.TestCase):

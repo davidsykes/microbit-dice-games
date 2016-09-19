@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
-from code import App
-from code import Game1
+from testcode import App, InjectMicrobitModule, SetRandom
+from testcode import Game1
 
 class TestGame1(unittest.TestCase):
 
@@ -14,7 +14,11 @@ class TestGame1(unittest.TestCase):
         self.mockfactory.GetAnimationModule = MagicMock(return_value=self.mockAnimationModule)
 
         self.mockMicrobitModule = MagicMock()
-        self.mockfactory.GetMicrobitModule = MagicMock(return_value=self.mockMicrobitModule)
+        InjectMicrobitModule(self.mockMicrobitModule)
+
+        self.mockRandomModule = MagicMock()
+        #self.mockRandomModule.randint
+        SetRandom(self.mockRandomModule)
 
         self.game = Game1(self.mockfactory)
 
@@ -37,10 +41,10 @@ class TestGame1(unittest.TestCase):
 
     def test_gameTurnFunctionFetchesRandomNumber1To6(self):
         self.game.Turn()
-        self.mockMicrobitModule.Random.assert_called_with(1,6)
+        self.mockRandomModule.randint.assert_called_with(1,6)
 
     def test_gameTurnFunctionDisplaysResultOfRandomCallAsString(self):
-        self.mockMicrobitModule.Random = MagicMock(return_value=42)
+        self.mockMicrobitModule.random = MagicMock(return_value=42)
         self.game.Turn()
         self.mockMicrobitModule.Show.assert_called_with('42')
 

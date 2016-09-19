@@ -1,6 +1,18 @@
 from microbit import *
 import random
 
+#################### Random module ####################
+
+class RandomImp:
+    def randint(self,p1,p2):
+        return random.randint(p1,p2)
+
+randomModule = RandomImp()
+
+def SetRandom(r):
+    global randomModule
+    randomModule = r
+
 #################### AnimationModule ####################
 
 class AnimationModule:
@@ -33,7 +45,7 @@ class Game1:
         
     def Turn(self):
         self.animationModule.Sparkle(2)
-        number = random.randint(1,6)
+        number = randomModule.randint(1,6)
         display.show(str(number))
         
     def Poll(self):
