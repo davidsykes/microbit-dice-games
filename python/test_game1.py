@@ -44,9 +44,9 @@ class TestGame1(unittest.TestCase):
         self.mockRandomModule.randint.assert_called_with(1,6)
 
     def test_gameTurnFunctionDisplaysResultOfRandomCallAsString(self):
-        self.mockMicrobitModule.random = MagicMock(return_value=42)
+        self.mockRandomModule.randint = MagicMock(return_value=42)
         self.game.Turn()
-        self.mockMicrobitModule.Show.assert_called_with('42')
+        self.mockMicrobitModule.show.assert_called_with('42')
 
 if __name__ == '__main__':
 
