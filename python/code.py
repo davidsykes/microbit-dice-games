@@ -31,10 +31,14 @@ class DisplayStepper:
     X = 4
     Y = -1
     def Next(self):
-        self.X = self.X + 1
-        if self.X > 4:
+        if self.X < 4:
+            self.X = self.X + 1
+        elif self.Y < 4:
             self.X = 0
             self.Y = self.Y + 1
+        else:
+            return False
+        return True
 
 #################### game1 #################### 
 
@@ -69,8 +73,10 @@ class Game2:
     def Poll(self):
         if (self.time > 0) and (running_time() >= (self.time + self.TimePeriod)):
             self.time = self.time + self.TimePeriod
-            self.displayStepper.Next()
-            self.animationModule.SetPixel(self.displayStepper.X,self.displayStepper.Y,0)
+            if self.displayStepper.Next():
+                self.animationModule.SetPixel(self.displayStepper.X,self.displayStepper.Y,0)
+            else:
+                display.show('X')
 
 #################### factory.py #########################
 

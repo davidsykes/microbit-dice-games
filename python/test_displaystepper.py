@@ -10,7 +10,10 @@ class TestDisplayStepper(unittest.TestCase):
     def setUp(self):
         self.ds = DisplayStepper()
         
-    def test_firstCallToNextStartWith0(self):
+    def test_firstCallToNextReturnsTrue(self):
+        self.assertTrue(self.ds.Next())
+
+    def test_firstCallToNextStartsWith0(self):
         self.ds.Next()
         self.assertEqual(0,self.ds.X)
         self.assertEqual(0,self.ds.Y)
@@ -44,6 +47,18 @@ class TestDisplayStepper(unittest.TestCase):
             self.ds.Next()
         self.assertEqual(4,self.ds.X)
         self.assertEqual(4,self.ds.Y)
+
+    def test_Call25ToNextReturnsTrue(self):
+        for _ in range(24):
+            self.ds.Next()
+        self.assertTrue(self.ds.Next())
+        
+    def test_Call26ToNextReturnsFalse(self):
+        for _ in range(25):
+            self.ds.Next()
+        self.assertFalse(self.ds.Next())
+        
+
 
 if __name__ == '__main__':
 
