@@ -68,7 +68,7 @@ class TestGame2(unittest.TestCase):
         self.mockAnimationModule.SetPixel.assert_any_call(0,0,0)
         self.mockAnimationModule.SetPixel.assert_any_call(1,0,0)
 
-    def test_On6thTimePeriodTheGameStartsClearingTheSecondRow(self):
+    def test_on6thTimePeriodTheGameStartsClearingTheSecondRow(self):
         turnStartTime = self.StartGameTurn()
         self.game.Poll()
         self.mockMicrobitModule.running_time = MagicMock(return_value=turnStartTime+self.game.TimePeriod * 6)
@@ -77,6 +77,26 @@ class TestGame2(unittest.TestCase):
         assert self.mockAnimationModule.SetPixel.call_count == 6
         self.mockAnimationModule.SetPixel.assert_called_with(0,1,0)
         
+    def test_on26thTimePeriodTheGameDisplaysAnX(self):
+        turnStartTime = self.StartGameTurn()
+        self.RunSomePlayTime(polls = 25, timeToRunTo = turnStartTime+self.game.TimePeriod * 25)
+        self.mockMicrobitModule.reset_mock()
+        self.RunSomePlayTime(polls = 26, timeToRunTo = turnStartTime+self.game.TimePeriod * 26)
+        self.mockMicrobitModule.show.assert_called_with('X')
+        
+    def test_whenASecondTurnIsStartedTheGameSetsAllThePixelsAgain(self):
+        turnStartTime = self.StartGameTurn()
+        self.RunSomePlayTime(polls = 5, timeToRunTo = turnStartTime+self.game.TimePeriod * 5)
+        self.mockAnimationModule.reset_mock()
+        turnStartTime = self.StartGameTurn()
+        self.mockAnimationModule.SetAllPixels.assert_called_once_with()
+        
+    def test_whenASecondTurnIsStartedTheGameResetsThePixelClearing(self):
+        turnStartTime = self.StartGameTurn()
+        self.RunSomePlayTime(polls = 5, timeToRunTo = turnStartTime+self.game.TimePeriod * 5)
+        self.mockAnimationModule.SetAllPixels.assert_called_once_with()
+        self.mockAnimationModule.SetAllPixels.assert_not_called()
+        
     # Support code
     
     def StartGameTurn(self):
@@ -84,6 +104,11 @@ class TestGame2(unittest.TestCase):
         self.mockMicrobitModule.running_time = MagicMock(return_value=turnStartTime)
         self.game.Turn()
         return turnStartTime
+        
+    def RunSomePlayTime(self, polls, timeToRunTo):
+        self.mockMicrobitModule.running_time = MagicMock(return_value=timeToRunTo)
+        for _ in range(polls):
+            self.game.Poll()
 
 if __name__ == '__main__':
     unittest.main()
