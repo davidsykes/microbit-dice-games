@@ -15,7 +15,6 @@ class TestGame2(unittest.TestCase):
 
         self.mockMicrobitModule = MagicMock()
         InjectMicrobitModule(self.mockMicrobitModule)
-        #self.mockfactory.GetMicrobitModule = MagicMock(return_value=self.mockMicrobitModule)
 
         self.game = Game2(self.mockfactory)
 
@@ -40,33 +39,29 @@ class TestGame2(unittest.TestCase):
         self.mockAnimationModule.SetPixel.assert_not_called()
 
     def test_gameDoesNothingBeforeFirstTimePeriod(self):
-        self.mockMicrobitModule.running_time = MagicMock(return_value=1234)
-        self.game.Turn()
-        self.mockMicrobitModule.running_time = MagicMock(return_value=1234 + self.game.TimePeriod - 1)
+        turnStartTime = self.StartGameTurn()
+        self.mockMicrobitModule.running_time = MagicMock(return_value=turnStartTime + self.game.TimePeriod - 1)
         self.game.Poll()
         self.mockAnimationModule.SetPixel.assert_not_called()
 
     def test_gameClearsFirstPixelOnFirstTimePeriod(self):
-        self.mockMicrobitModule.running_time = MagicMock(return_value=1234)
-        self.game.Turn()
-        self.mockMicrobitModule.running_time = MagicMock(return_value=1234 + self.game.TimePeriod)
+        turnStartTime = self.StartGameTurn()
+        self.mockMicrobitModule.running_time = MagicMock(return_value=turnStartTime + self.game.TimePeriod)
         self.game.Poll()
         self.mockAnimationModule.SetPixel.assert_called_once_with(0,0,0)
         assert self.mockAnimationModule.SetPixel.call_count == 1
 
     def test_gameClearsOnlyFirstPixelAfterASinglePollInTwoTimePeriods(self):
-        self.mockMicrobitModule.running_time = MagicMock(return_value=1234)
-        self.game.Turn()
-        self.mockMicrobitModule.running_time = MagicMock(return_value=1234 + self.game.TimePeriod * 2)
+        turnStartTime = self.StartGameTurn()
+        self.mockMicrobitModule.running_time = MagicMock(return_value=turnStartTime + self.game.TimePeriod * 2)
         self.game.Poll()
         self.mockAnimationModule.SetPixel.assert_called_once_with(0,0,0)
         assert self.mockAnimationModule.SetPixel.call_count == 1
 
     def test_gameClearsTwoPixelsAfterAMultiplePollsInTwoTimePeriods(self):
-        self.mockMicrobitModule.running_time = MagicMock(return_value=1234)
-        self.game.Turn()
+        turnStartTime = self.StartGameTurn()
         self.game.Poll()
-        self.mockMicrobitModule.running_time = MagicMock(return_value=1234 + self.game.TimePeriod * 2)
+        self.mockMicrobitModule.running_time = MagicMock(return_value=turnStartTime + self.game.TimePeriod * 2)
         self.game.Poll()
         self.game.Poll()
         assert self.mockAnimationModule.SetPixel.call_count == 2
@@ -74,15 +69,21 @@ class TestGame2(unittest.TestCase):
         self.mockAnimationModule.SetPixel.assert_any_call(1,0,0)
 
     def test_On6thTimePeriodTheGameStartsClearingTheSecondRow(self):
-        self.mockMicrobitModule.running_time = MagicMock(return_value=1)
-        self.game.Turn()
+        turnStartTime = self.StartGameTurn()
         self.game.Poll()
-        self.mockMicrobitModule.running_time = MagicMock(return_value=1+self.game.TimePeriod * 6)
+        self.mockMicrobitModule.running_time = MagicMock(return_value=turnStartTime+self.game.TimePeriod * 6)
         for _ in range(6):
             self.game.Poll()
         assert self.mockAnimationModule.SetPixel.call_count == 6
         self.mockAnimationModule.SetPixel.assert_called_with(0,1,0)
         
+    # Support code
+    
+    def StartGameTurn(self):
+        turnStartTime = 1234
+        self.mockMicrobitModule.running_time = MagicMock(return_value=turnStartTime)
+        self.game.Turn()
+        return turnStartTime
 
 if __name__ == '__main__':
     unittest.main()
