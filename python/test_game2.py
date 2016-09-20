@@ -94,8 +94,12 @@ class TestGame2(unittest.TestCase):
     def test_whenASecondTurnIsStartedTheGameResetsThePixelClearing(self):
         turnStartTime = self.StartGameTurn()
         self.RunSomePlayTime(polls = 5, timeToRunTo = turnStartTime+self.game.TimePeriod * 5)
-        self.mockAnimationModule.SetAllPixels.assert_called_once_with()
-        self.mockAnimationModule.SetAllPixels.assert_not_called()
+        self.game.Turn()
+        self.mockAnimationModule.reset_mock()
+
+        self.RunSomePlayTime(polls = 1, timeToRunTo = turnStartTime+self.game.TimePeriod * 6)
+
+        self.mockAnimationModule.SetPixel.assert_called_once_with(0,0,0)
         
     # Support code
     

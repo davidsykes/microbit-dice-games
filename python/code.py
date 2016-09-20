@@ -60,10 +60,10 @@ class Game2:
         self.animationModule = factory.GetAnimationModule()
         self.time = 0
         display.show('R')
-        self.displayStepper = DisplayStepper() 
         
     def Turn(self):
         self.animationModule.SetAllPixels()
+        self.displayStepper = DisplayStepper() 
         self.time = running_time()
         
     def Poll(self):
