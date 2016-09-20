@@ -80,7 +80,6 @@ class TestGame2(unittest.TestCase):
         self.mockMicrobitModule.running_time = MagicMock(return_value=1+self.game.TimePeriod * 6)
         for _ in range(6):
             self.game.Poll()
-#        print(self.mockAnimationModule.mock_calls)
         assert self.mockAnimationModule.SetPixel.call_count == 6
         self.mockAnimationModule.SetPixel.assert_called_with(0,1,0)
         

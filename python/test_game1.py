@@ -17,7 +17,6 @@ class TestGame1(unittest.TestCase):
         InjectMicrobitModule(self.mockMicrobitModule)
 
         self.mockRandomModule = MagicMock()
-        #self.mockRandomModule.randint
         SetRandom(self.mockRandomModule)
 
         self.game = Game1(self.mockfactory)
@@ -25,13 +24,10 @@ class TestGame1(unittest.TestCase):
     # Initialise
         
     def test_game1InitialiseRequestsAnimationModule(self):
-        self.mockfactory.GetAnimationModule.assert_called_with(self.mockMicrobitModule)
-        
-    def test_game1InitialiseRequestsMicrobitModule(self):
-        self.mockfactory.GetMicrobitModule.assert_called_with()
+        self.mockfactory.GetAnimationModule.assert_called_with()
         
     def test_game1InitialiseDisplaysAnImage(self):
-        self.mockMicrobitModule.Image.assert_called_with('Heart')
+        self.mockMicrobitModule.show.assert_called_with('Heart')
 
     # Turn
         

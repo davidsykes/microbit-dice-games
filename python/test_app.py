@@ -13,20 +13,20 @@ class TestMainApp(unittest.TestCase):
         self.app = App(self.mockfactory)
         
     def test_CallingTheAppRunModuleRequestsGame1Controller(self):
-        self.app.Run(self.mockMicrobitModule)
+        self.app.Run()
         self.mockfactory.CreateGame.assert_called_with(1)
 
     # Event trigger: button A
 
     def test_ButtonAPressRequestsSecondGameController(self):
         mockGame = MagicMock();
-        self.app.Run(self.mockMicrobitModule)
+        self.app.Run()
         self.app.ButtonA();
         self.mockfactory.CreateGame.assert_called_with(2)
 
     def test_ButtonAGameRequestsLoopRound(self):
         mockGame = MagicMock();
-        self.app.Run(self.mockMicrobitModule)
+        self.app.Run()
         self.app.ButtonA();
         self.mockfactory.reset_mock()
         self.app.ButtonA();
@@ -37,7 +37,7 @@ class TestMainApp(unittest.TestCase):
     def test_ShakeEventCallsGameTurnFunction(self):
         mockGame = MagicMock();
         self.mockfactory.CreateGame = MagicMock(return_value=mockGame)
-        self.app.Run(self.mockMicrobitModule)
+        self.app.Run()
         self.app.Shake();
         mockGame.Turn.assert_called_with()
 
