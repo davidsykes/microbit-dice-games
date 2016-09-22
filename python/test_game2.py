@@ -82,7 +82,7 @@ class TestGame2(unittest.TestCase):
         self.RunSomePlayTime(polls = 25, timeToRunTo = turnStartTime+self.game.TimePeriod * 25)
         self.mockMicrobitModule.reset_mock()
         self.RunSomePlayTime(polls = 26, timeToRunTo = turnStartTime+self.game.TimePeriod * 26)
-        self.mockMicrobitModule.show.assert_called_with('X')
+        self.mockMicrobitModule.show.assert_called_with('Sad')
         
     def test_whenASecondTurnIsStartedTheGameSetsAllThePixelsAgain(self):
         turnStartTime = self.StartGameTurn()
@@ -100,6 +100,13 @@ class TestGame2(unittest.TestCase):
         self.RunSomePlayTime(polls = 1, timeToRunTo = turnStartTime+self.game.TimePeriod * 6)
 
         self.mockAnimationModule.SetPixel.assert_called_once_with(0,0,0)
+        
+    def test_whenTheTimeRunsOutTheTurnActionIsDisabled(self):
+        turnStartTime = self.StartGameTurn()
+        self.RunSomePlayTime(polls = 26, timeToRunTo = turnStartTime+self.game.TimePeriod * 26)
+        self.mockAnimationModule.reset_mock()
+        self.game.Turn()
+        self.mockAnimationModule.SetAllPixels.assert_not_called()
         
     # Support code
     

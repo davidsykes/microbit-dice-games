@@ -58,17 +58,19 @@ class Game1:
 #################### game2 #################### 
 
 class Game2:
-    TimePeriod = 2400
+    TimePeriod = 300 #2400
 
     def __init__(self, factory):
         self.animationModule = factory.GetAnimationModule()
         self.time = 0
+        self.timedOut = False
         display.show('R')
         
     def Turn(self):
-        self.animationModule.SetAllPixels()
-        self.displayStepper = DisplayStepper() 
-        self.time = running_time()
+        if not self.timedOut:
+            self.animationModule.SetAllPixels()
+            self.displayStepper = DisplayStepper() 
+            self.time = running_time()
         
     def Poll(self):
         if (self.time > 0) and (running_time() >= (self.time + self.TimePeriod)):
@@ -76,7 +78,8 @@ class Game2:
             if self.displayStepper.Next():
                 self.animationModule.SetPixel(self.displayStepper.X,self.displayStepper.Y,0)
             else:
-                display.show('X')
+                self.timedOut = True
+                display.show(Image.SAD)
 
 #################### factory.py #########################
 
