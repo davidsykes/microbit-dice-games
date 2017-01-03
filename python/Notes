@@ -1,1 +1,11 @@
+
         print(self.mockAnimationModule.mock_calls)
+
+        self.mockfactory = MagicMock();
+        self.mockfactory.CreateGame.assert_called_with(1)
+        self.mockfactory.reset_mock()
+        self.assertTrue(self.ds.Next())
+        self.assertEqual(2,self.ds.X)
+        self.mockfactory.GetAnimationModule = MagicMock(return_value=self.mockAnimationModule)
+        self.mockAnimationModule.SetAllPixels.assert_called_once_with()
+
