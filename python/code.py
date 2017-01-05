@@ -58,7 +58,7 @@ class Game1:
 #################### game2 #################### 
 
 class Game2:
-    TimePeriod = 300 #2400
+    TimePeriod = 2286
 
     def __init__(self, factory):
         self.animationModule = factory.GetAnimationModule()
