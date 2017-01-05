@@ -3,7 +3,7 @@ from Image import Image
 
 def scroll(message):
     print ('Scroll:', message)
-    
+
 def show(image):
     print ('Image:', image, type(image))
     if isinstance(image, Image):
