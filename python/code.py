@@ -46,14 +46,25 @@ class Game1:
     def __init__(self, factory):
         self.animationModule = factory.GetAnimationModule()
         display.show(Image.HEART)
+        self.d1 = 0
+        self.d2 = 0
+        self.show1 = True
         
     def Turn(self):
         self.animationModule.Sparkle(2)
-        number = randomModule.randint(1,6)
-        display.show(str(number))
+        self.d1 = randomModule.randint(1,6)
+        self.d2 = randomModule.randint(1,6)
+        self.next_time = 0
         
     def Poll(self):
-        pass
+        if self.d1 == 0 or self.next_time > running_time():
+            return
+        if self.show1:
+            display.show(str(self.d1))
+        else:
+            display.show(str(self.d2))
+        self.show1 = not self.show1
+        self.next_time = running_time() + 300
 
 #################### game2 #################### 
 
@@ -114,6 +125,7 @@ class App:
 ###  main.py ###
 
 if __name__ == '__main__':
+    random.seed()
     fac = Factory();
     app = App(fac)
     app.Run()
